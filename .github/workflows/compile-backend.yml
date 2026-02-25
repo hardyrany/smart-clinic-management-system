@@ -1,4 +1,4 @@
-name: Compile Backend
+name: Compile Backend and Run Code Quality Checks
 
 # Trigger workflow on pushes to main branch and pull requests targeting main
 on:
@@ -34,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Step 4: Make the Maven wrapper executable
+      # Step 4: Make Maven wrapper executable (required for Linux runners)
       - name: Make Maven wrapper executable
         run: chmod +x ./backend/mvnw
 
@@ -43,12 +43,22 @@ jobs:
         run: ./mvnw clean compile
         working-directory: backend
 
-      # Step 6: Build the backend JAR without running tests
+      # Step 6: Build backend JAR without running tests
       - name: Build Backend with Maven Wrapper
         run: ./mvnw clean install -DskipTests
         working-directory: backend
 
-      # Step 7: Run unit tests to verify code quality
+      # Step 7: Run unit tests to ensure code quality
       - name: Run Backend Tests with Maven Wrapper
         run: ./mvnw test
+        working-directory: backend
+
+      # Step 8: Run Checkstyle to verify coding standards
+      - name: Run Checkstyle
+        run: ./mvnw checkstyle:check
+        working-directory: backend
+
+      # Step 9: Run SpotBugs to catch potential bugs
+      - name: Run SpotBugs
+        run: ./mvnw spotbugs:check
         working-directory: backend
