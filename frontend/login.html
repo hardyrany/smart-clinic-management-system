@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Login</h2>
+
+  <input type="text" id="username" placeholder="Username"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+async function login() {
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
+    });
+
+    const token = await response.text();
+    localStorage.setItem("token", token);
+
+    window.location.href = "patient.html";
+}
+</script>
+
+</body>
+</html>

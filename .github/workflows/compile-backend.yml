@@ -1,0 +1,61 @@
+name: Compile Backend
+
+# Trigger workflow on pushes to main branch and pull requests targeting main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Java 17 using Temurin distribution
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # Step 3: Cache Maven dependencies to speed up subsequent builds
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('backend/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 4: Make the Maven wrapper executable
+      - name: Make Maven wrapper executable
+        run: |
+          cd backend
+          chmod +x ./mvnw
+
+      # Step 5: Clean compile the backend code
+      # This step explicitly compiles the Java source files
+      - name: Compile Backend Code
+        run: |
+          cd backend
+          ./mvnw clean compile
+
+      # Step 6: Build the backend (skip tests for faster build)
+      # This creates the JAR file without running tests
+      - name: Build Backend with Maven Wrapper
+        run: |
+          cd backend
+          ./mvnw clean install -DskipTests
+
+      # Step 7: Run the tests to verify code quality
+      - name: Run Backend Tests with Maven Wrapper
+        run: |
+          cd backend
+          ./mvnw test

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2>Patient Dashboard</h2>
+
+<h3>Book Appointment</h3>
+<input type="datetime-local" id="date">
+<input type="number" id="doctorId" placeholder="Doctor ID">
+<button onclick="book()">Book</button>
+
+<h3>Your Appointments</h3>
+<ul id="appointments"></ul>
+
+<script src="js/api.js"></script>
+<script>
+async function book() {
+    await apiRequest("/appointments", "POST", {
+        appointmentDate: date.value,
+        status: "SCHEDULED",
+        doctor: { id: doctorId.value }
+    });
+
+    loadAppointments();
+}
+
+async function loadAppointments() {
+    const data = await apiRequest("/appointments");
+    const list = document.getElementById("appointments");
+    list.innerHTML = "";
+
+    data.forEach(app => {
+        list.innerHTML += `<li>${app.appointmentDate} - ${app.status}</li>`;
+    });
+}
+
+loadAppointments();
+</script>
+
+</body>
+</html>
