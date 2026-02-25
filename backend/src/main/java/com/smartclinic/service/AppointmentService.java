@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,17 @@ public class AppointmentService {
         return appointmentRepository.findByDoctorId(doctorId);
     }
 
+    public List<Appointment> getAppointmentsByDoctorIdAndDate(Long doctorId, LocalDate date) {
+    if (doctorId == null || date == null) {
+        throw new IllegalArgumentException("Doctor ID and date must be provided");
+    }
+
+    LocalDateTime startOfDay = date.atStartOfDay(); // 00:00:00
+    LocalDateTime endOfDay = date.atTime(23, 59, 59); // 23:59:59
+
+    return appointmentRepository.findByDoctorIdAndAppointmentDateBetween(doctorId, startOfDay, endOfDay);
+}
+
     public List<String> getAvailableTimesForDate(Long id, LocalDate date) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAvailableTimesForDate'");
@@ -69,10 +81,5 @@ public class AppointmentService {
     public List<String> getAvailableTimesForDoctorOnDate(Doctor doctor, LocalDate date) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getAvailableTimesForDoctorOnDate'");
-    }
-
-    // Get appointments by doctor ID and specific date
-    public List<Appointment> getAppointmentsByDoctorIdAndDate(Long doctorId, LocalDate date) {
-        return appointmentRepository.findByDoctorIdAndAppointmentDate(doctorId, date);
     }
 }

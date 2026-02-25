@@ -30,6 +30,20 @@ public class TokenService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    public String generateToken(String email) {
+        return generateToken(new HashMap<>(), email);
+    }
+
+    public String generateToken(Map<String, Object> extraClaims, String email) {
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(email)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
+    }
+
     // Enhanced generateToken with additional claims support
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);

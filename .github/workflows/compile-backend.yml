@@ -25,7 +25,7 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      # Step 3: Cache Maven dependencies to speed up subsequent builds
+      # Step 3: Cache Maven dependencies to speed up builds
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
@@ -36,26 +36,19 @@ jobs:
 
       # Step 4: Make the Maven wrapper executable
       - name: Make Maven wrapper executable
-        run: |
-          cd backend
-          chmod +x ./mvnw
+        run: chmod +x ./backend/mvnw
 
-      # Step 5: Clean compile the backend code
-      # This step explicitly compiles the Java source files
+      # Step 5: Compile backend source code without packaging
       - name: Compile Backend Code
-        run: |
-          cd backend
-          ./mvnw clean compile
+        run: ./mvnw clean compile
+        working-directory: backend
 
-      # Step 6: Build the backend (skip tests for faster build)
-      # This creates the JAR file without running tests
+      # Step 6: Build the backend JAR without running tests
       - name: Build Backend with Maven Wrapper
-        run: |
-          cd backend
-          ./mvnw clean install -DskipTests
+        run: ./mvnw clean install -DskipTests
+        working-directory: backend
 
-      # Step 7: Run the tests to verify code quality
+      # Step 7: Run unit tests to verify code quality
       - name: Run Backend Tests with Maven Wrapper
-        run: |
-          cd backend
-          ./mvnw test
+        run: ./mvnw test
+        working-directory: backend
