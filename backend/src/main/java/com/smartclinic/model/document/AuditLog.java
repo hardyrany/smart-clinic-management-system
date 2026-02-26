@@ -4,11 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
-@Document(collection = "audit_logs")  // ← @Document, NOT @Entity
+@Document(collection = "audit_logs") 
 public class AuditLog {
 
     @Id
-    private String id;  // ← String, not Long
+    private String id; 
 
     private String action;
     private String performedBy;

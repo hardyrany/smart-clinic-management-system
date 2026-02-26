@@ -14,7 +14,7 @@ import java.util.List;
 public class DatabaseController {
 
     @Autowired
-    private DataSource dataSource;  // Spring injeta automaticamente
+    private DataSource dataSource;
 
     @GetMapping("/tables")
     public List<String> getTables() {
@@ -28,7 +28,7 @@ public class DatabaseController {
             while (rs.next()) {
                 tables.add(rs.getString(1));
             }
-            System.out.println("Tabelas encontradas: " + tables);
+            System.out.println("Found tables: " + tables);
             
         } catch (SQLException e) {
             e.printStackTrace();

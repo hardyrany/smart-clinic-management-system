@@ -2,7 +2,7 @@ package com.smartclinic.model.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "users")
 @Getter @Setter
 public class User {
 

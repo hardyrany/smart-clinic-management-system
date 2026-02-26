@@ -17,8 +17,8 @@ public class Prescription {
     @Id
     private String id;
 
-    private Long patientId;       // reference to MySQL Patient.id
-    private Long doctorId;        // reference to MySQL Doctor.id
+    private Long patientId;       
+    private Long doctorId;     
     private String patientName;
     private String doctorName;
     private String medications;

@@ -37,7 +37,7 @@ public class DoctorController {
      * @param token    Authorization token
      * @return List of available times or an error message
      */
-    @GetMapping("/availability/{user}/{doctorId}/{date}/{token}")
+    @GetMapping("/availability/{users}/{doctorId}/{date}/{token}")
     public ResponseEntity<?> getDoctorAvailability(
             @PathVariable String user,
             @PathVariable Long doctorId,

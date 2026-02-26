@@ -36,7 +36,7 @@ public class AppointmentService {
     // Atualizar consulta
     public Optional<Appointment> updateAppointment(Long id, Appointment appointmentDetails) {
         return appointmentRepository.findById(id).map(appointment -> {
-            appointment.setPatient(appointmentDetails.getPatient());
+            appointment.setPatients(appointmentDetails.getPatients());
             appointment.setDoctor(appointmentDetails.getDoctor());
             appointment.setAppointmentDate(appointmentDetails.getAppointmentDate());
             appointment.setReason(appointmentDetails.getReason());

@@ -45,7 +45,7 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public ResponseEntity<Appointment> getAppointmentById(@PathVariable Long id) {
         Appointment appointment = ((Optional<Appointment>) appointmentService.getAppointmentById(id))
-                .orElse(null); // caso getAppointmentById ainda retorne Optional
+                .orElse(null);
         if (appointment != null) {
             return ResponseEntity.ok(appointment);
         } else {
