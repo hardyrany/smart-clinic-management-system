@@ -1,4 +1,4 @@
-package com.smartclinic.repository.mongo;
+package com.smartclinic.repository.jpa;
 
 import com.smartclinic.model.entity.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;

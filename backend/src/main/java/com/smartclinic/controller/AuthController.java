@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smartclinic.model.entity.User;
-import com.smartclinic.repository.mongo.UserRepository;
+import com.smartclinic.repository.jpa.UserRepository;
 import com.smartclinic.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;

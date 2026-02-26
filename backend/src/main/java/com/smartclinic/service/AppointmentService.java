@@ -2,7 +2,7 @@ package com.smartclinic.service;
 
 import com.smartclinic.model.entity.Appointment;
 import com.smartclinic.model.entity.Doctor;
-import com.smartclinic.repository.mongo.AppointmentRepository;
+import com.smartclinic.repository.jpa.AppointmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

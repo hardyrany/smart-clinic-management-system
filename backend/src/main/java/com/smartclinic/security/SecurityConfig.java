@@ -1,6 +1,6 @@
 package com.smartclinic.security;
 
-import com.smartclinic.repository.mongo.UserRepository;
+import com.smartclinic.repository.jpa.UserRepository;
 import com.smartclinic.security.CustomUserDetailsService;
 
 import lombok.RequiredArgsConstructor;

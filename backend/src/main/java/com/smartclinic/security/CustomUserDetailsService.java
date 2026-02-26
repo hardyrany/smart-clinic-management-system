@@ -1,7 +1,7 @@
 package com.smartclinic.security;
 
 import com.smartclinic.model.entity.User;
-import com.smartclinic.repository.mongo.UserRepository;
+import com.smartclinic.repository.jpa.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
