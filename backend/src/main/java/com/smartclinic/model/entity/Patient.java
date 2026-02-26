@@ -14,8 +14,12 @@ public class Patient {
     private Long id;
 
     @NotBlank
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @NotBlank
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
 
     @Email
     @NotBlank
@@ -34,8 +38,9 @@ public class Patient {
     public Patient() {}
 
     // Parameterized constructor
-    public Patient(String name, String email, String phone) {
-        this.name = name;
+    public Patient(String firstName, String lastName, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phone = phone;
     }
@@ -44,8 +49,11 @@ public class Patient {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getfirstName() { return firstName; }
+    public void setfirstName(String firstName) { this.firstName = firstName; }
+
+    public String getlastName() { return lastName; }
+    public void setlastName(String lastName) { this.lastName = lastName; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
